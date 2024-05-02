@@ -1,0 +1,180 @@
+@font-face {
+    font-family: 'space_age';
+    src: url('space_age-webfont.woff2') format('woff2'),
+         url('space_age-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+
+body{
+	ooverflow:auto;
+	background:linear-gradient(#00308F,30%,#DDA0DD);
+	min-height:100vh;
+	border:solid black 3px;
+	color:white;
+
+}
+
+
+main{
+	overflow:auto;
+	malx-height:100vh;
+    	border:1px solid red;
+}
+
+header{
+	font-size:3em;
+	text-align:center;
+	padding:1.5rem;
+	color:white;
+	font-family:space_age;
+}
+
+h3{
+
+	text-align:center;
+}
+dform{
+display:flex;
+}
+
+form > input,label,select{
+display:inline-block;
+margin:1rem;
+/* align-items:center; */
+
+}
+
+.buttons{
+
+	display:flex;
+	flex-flow:row wrap;
+	justify-content:center;
+	align-items:center;
+	gap:1rem;
+	margin:1rem;
+
+	button{
+		flex:1;
+		border-radius: 0.5rem;
+		height:2rem;
+	}
+	button:hover{
+		color:red;
+		background-color:lightblue;
+	}
+
+}
+
+ddiv{
+    border:1px solid red;
+}
+
+#aside{
+
+    min-height:100%;
+
+}
+
+#main-container{
+
+    display:grid;
+    fdlex-flow:row wrap;
+    gdrid-auto-rows;
+    grid-auto-rows: minmax(100px, auto);    
+
+    border:2px solid yellow;
+
+
+}
+
+#main-container > div {
+
+	flex:1;
+	mijn-height:100%;
+
+}
+
+#main-container > div:nth-of-type(2){
+	flex:3;
+}
+
+
+
+#content-container{
+
+    display:flex;
+    flex-flow:column wrap;
+    padding:2px;
+    border:2px solid pink;
+    max-height:100%;
+    olverflow:auto;
+
+}
+
+#content-container > div{
+
+flex:1;
+
+
+}
+
+#main-image{
+
+	max-width:50%;
+	justify-content:center;
+
+	img{
+		object-fit:contain;
+
+		max-width:100%;
+	}	
+    
+}
+
+#image-gallery{
+    border:solid yellow 2px;
+    overflow:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr ;
+ 
+    gap:1em;
+    
+
+}
+.image-container{
+	border:1px solid darkblue;
+	border-radius:10px;
+	flex:1 250px;
+	overflow:auto;
+	
+	img{
+		object-fit:contain;
+
+		max-width:100%;
+	
+	}
+}
+.image-container:hover{
+	flex:300px;
+	font-size:1em;
+	text-align:center;
+}
+
+
+footer{
+
+	font-family:space_age;
+	font-size:1.5em;
+	text-align:center;
+	padding:1.5rem;
+
+}
+
+
+
