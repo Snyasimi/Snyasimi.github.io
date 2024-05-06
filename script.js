@@ -8,7 +8,7 @@
 
 const API_KEY = "EjUoC9JtUKrteFF8ZUBjbcUUMXfwcgii9SOuIr8r";
 
-const IMAGE_URL =`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=10`;
+const IMAGE_URL =`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=20`;
 //Take in the imageobj as argument
 
 function createCard(imageobj){
@@ -99,6 +99,43 @@ async function getImages(url){
 }
 
 
+async function picOfDay(url){
 
+	const response = await fetch(url);
+	
+         if(response.ok){
+		
+		let image =  await response.json();
+		let apod_container = document.querySelector(".apod-image");
+		
+		if(image['media_type'] == "video"){
+			
+			let frame = document.createElement("iframe");
+			frame.src = image['url'];
+			frame.width="100%";
+			frame.height = "100%";
+			
+			apod_container.appendChild(frame);
+			return;
+		}
+		
+	
+		let apod_expl = document.querySelector(".article-content");
+		let apod_img = document.createElement("img");
+		
+		apod_expl.textContent = image['explanation'];
+		apod_img.src = image['url'];
+		apod_container.appendChild(apod_img);
+		
+				
+
+	}
+	console.log("Error geting APOD");
+
+	
+}
+
+
+picOfDay(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`);
 getImages(IMAGE_URL);
 
