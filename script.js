@@ -15,34 +15,49 @@ function createCard(imageobj){
 	
 	try{
 
-		let imageGallery = document.querySelector("#image-gallery");
-		let imageContainer  = document.createElement("div");
-		let figure = document.createElement("figure");
-		let caption = document.createElement("figcaption");
-		let image = document.createElement("img");
-		let link = document.createElement('a');
+		const imageGallery = document.querySelector("#image-gallery");
+		const imageContainer  = document.createElement("div");
+		const figure = document.createElement("figure");
+		const caption = document.createElement("figcaption");
 		
-
-		link.href= imageobj['url'];
+		/*
+ 		* const link = document.createElement('a');
+ 		*link.href= imageobj['url'];
 		link.textContent = "View Original image";
-		
-		
-		image.src = imageobj['url'];
-		image.alt = imageobj['title'];
-		imageContainer.className = "image-container";
-		
-		figure.width="100%";
-		
+		*/
 
+		switch(imageobj["media_type"]){
+		
+			case "video":
+				
+				const frame = document.createElement("iframe");
+				frame.src = image['url'];
+				frame.width="100%";
+				frame.height = "100%";
 
-		imageContainer.appendChild(figure)
-			      .appendChild(image);
+				imageContainer.appendChild(figure)
+				 	      .appendChild(frame);
+				break;
+			
+			default:	
+				
+				const image = document.createElement("img");
+				image.src = imageobj['url'];
+				image.alt = imageobj['title'];
+				imageContainer.className = "image-container";
+				figure.width="100%";
+
+				imageContainer.appendChild(figure)
+			      	      	      .appendChild(image);
+				break;
+
+		}
 
 		//imageContainer.appendChild(link);
 
 		caption.innerHTML = `<p>TITLE: ${imageobj['title']},</p>
-							  <p> DATE: ${imageobj['date']},\ </p>
-							   <p>COPYRIGHT: ${imageobj['copyright']}.</p>`;
+				     <p> DATE: ${imageobj['date']},\ </p>
+				     <p>COPYRIGHT: ${imageobj['copyright']}.</p>`;
 
 		figure.appendChild(caption);
 
@@ -80,7 +95,7 @@ async function getImages(url){
 		
 		if(response.ok){
 			
-			let data = await response.json();
+			const data = await response.json();
 			
 			for(image of data){
 
@@ -101,38 +116,51 @@ async function getImages(url){
 
 async function picOfDay(url){
 
-	const response = await fetch(url);
+	try{
+
+
+		const response = await fetch(url);
 	
-         if(response.ok){
+         	if(response.ok){
 		
-		let image =  await response.json();
-		let apod_container = document.querySelector(".apod-image");
+			const image =  await response.json();
+			const apod_container = document.querySelector(".apod-image");
+			const apod_expl = document.querySelector(".article-content");
 		
-		if(image['media_type'] == "video"){
+			if(image['media_type'] == "video"){
 			
-			let frame = document.createElement("iframe");
-			frame.src = image['url'];
-			frame.width="100%";
-			frame.height = "100%";
+				const frame = document.createElement("iframe");
+				frame.src = image['url'];
+				frame.width="100%";
+				frame.height = "100%";
+				apod_expl.textContent = image['explanation'];
 			
-			apod_container.appendChild(frame);
-			return;
-		}
+				apod_container.appendChild(frame);
+				return true;
+			}
 		
 	
-		let apod_expl = document.querySelector(".article-content");
-		let apod_img = document.createElement("img");
+			const apod_img = document.createElement("img");
 		
-		apod_expl.textContent = image['explanation'];
-		apod_img.src = image['url'];
-		apod_container.appendChild(apod_img);
+			apod_expl.textContent = image['explanation'];
+			apod_img.src = image['url'];
+			apod_container.appendChild(apod_img);
+			return true;
 		
 				
 
-	}
-	console.log("Error geting APOD");
+		}
 
-	
+		console.log("Error geting APOD response");
+		return false;
+
+
+		}	
+
+	catch(error){
+		
+		console.log(`Error ${error} `);
+	}
 }
 
 
